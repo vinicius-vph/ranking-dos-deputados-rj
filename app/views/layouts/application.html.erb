@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ranking de gastos</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <nav class="navbar nav-light interativetext" style="background: transparent linear-gradient(82deg,#924ef2 0%,#743dbf 100%) 0% 0% no-repeat;height:80px">
+      <h1 class="text-white text-center" style="margin:0 auto;" id="interativetext">
+        Ranking dos gastos dos Deputados
+      </h1>
+    </nav>
+    <article style="width:90%;height:70vh;margin:0 auto;">
+      <% if notice %>
+        <div class="alert alert-success" role="alert">
+          <%= notice %>
+        </div>
+      <% end %>
+      <% if alert %>
+        <div class="alert alert-danger" role="alert">
+          <%= alert %>
+        </div>
+      <% end %>
+      <%= yield %>
+    </article>
+    <script>
+      const header = document.querySelector('body nav .interativetext');
+      const title = document.querySelector('#interativetext');
+      function typeWriter (elemento) {    
+        const textoArray = elemento.innerHTML.split('');      
+        elemento.innerHTML = ''      
+        textoArray.forEach((letra, i) => {      
+          setTimeout(() =>      
+          elemento.innerHTML += letra, 150 * i);
+        });
+      }  
+      setInterval(() => typeWriter(header), 8000);
+      setInterval(() => typeWriter(title), 8000);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+<%= link_to "Voltar", :back, class: "btn btn-primary btn-sm btn-warning mt-3" %>
+<div class="container" style="height:100%;">
+    <h5 style="margin-top:2rem">Detalhe dos gastos</h5>
+
+   <div class="d-flex align-items-end mt-3" style="font-size:.8rem">
+        <table class="table table-striped table-hover" style="overflow-y:scroll;">
+              <thead>
+                <tr class="table-success">
+                    <th scope="col">Nome do Parlamentar</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Valor</th>
+                    <th scope="col">Data</th>
+                    <th scope="col">Estabelecimento</th>
+                    <th scope="col">Link para a nota</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if @details.any? %>
+                    <% @details.each do |detail| %>
+                    <tr>
+                        <td><%= detail.txNomeParlamentar %></td>
+                        <td><%= detail.sgUF %></td>
+                        <td>
+                            <% if detail.vlrLiquido %>
+                                <%= number_to_currency(detail.vlrLiquido) %>
+                            <% else %>
+                                <%= "R$ 00,00" %>
+                            <% end %>
+                        </td>
+                        <td>
+                            <% if detail.datEmissao %>
+                                <%= l detail.datEmissao, format: :long %>
+                            <% else %>
+                                <%= "00/00/0000" %>
+                            <% end %>
+                        </td>
+
+                        <td><%= detail.txtFornecedor %></td>
+                        <td>
+                            <% if detail.urlDocumento %>
+                                <%= link_to detail.urlDocumento, detail.urlDocumento, target: "_blank" %>
+                            <% else %>
+                                <%= "Link não disponibilizado" %>
+                            <% end%>
+                        </td>
+                    </tr>
+                    
+                    <% end %>
+                <% else %>
+                    <tr>
+                        <td colspan="6" class="text-danger text-center">Nenhum dado disponível</td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>
